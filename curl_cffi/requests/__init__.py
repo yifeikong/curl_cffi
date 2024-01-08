@@ -16,6 +16,7 @@ __all__ = [
     "Headers",
     "Request",
     "Response",
+    "AsyncWebSocket",
     "WebSocket",
     "WebSocketError",
     "WsCloseCode",
@@ -27,11 +28,11 @@ from typing import Callable, Dict, Optional, Tuple, Union
 
 from ..const import CurlHttpVersion, CurlWsFlag
 from .cookies import Cookies, CookieTypes
-from .models import Request, Response
+from .models import BrowserType, Request, Response
 from .errors import RequestsError
 from .headers import Headers, HeaderTypes
-from .session import AsyncSession, BrowserType, Session, ProxySpec
-from .websockets import WebSocket, WebSocketError, WsCloseCode
+from .session import AsyncSession, Session, ProxySpec
+from .websockets import AsyncWebSocket, WebSocket, WebSocketError, WsCloseCode
 
 # ThreadType = Literal["eventlet", "gevent", None]
 
@@ -52,7 +53,7 @@ def request(
     proxies: Optional[ProxySpec] = None,
     proxy: Optional[str] = None,
     proxy_auth: Optional[Tuple[str, str]] = None,
-    verify: Optional[bool] = None,
+    verify: Optional[Union[bool, str]] = None,
     referer: Optional[str] = None,
     accept_encoding: Optional[str] = "gzip, deflate, br",
     content_callback: Optional[Callable] = None,
