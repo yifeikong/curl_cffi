@@ -20,7 +20,7 @@ from .cookies import Cookies, CookieTypes, CurlMorsel
 from .errors import RequestsError, SessionClosed
 from .headers import Headers, HeaderTypes
 from .models import Request, Response
-from .websockets import WebSocket
+from .websockets import ON_CLOSE_T, ON_ERROR_T, ON_MESSAGE_T, ON_OPEN_T, WebSocket
 
 try:
     import gevent
@@ -681,10 +681,10 @@ class Session(BaseSession):
         self,
         url,
         *args,
-        on_message: Optional[Callable[[WebSocket, str], None]] = None,
-        on_error: Optional[Callable[[WebSocket, str], None]] = None,
-        on_open: Optional[Callable] = None,
-        on_close: Optional[Callable] = None,
+        on_message: Optional[ON_MESSAGE_T] = None,
+        on_error: Optional[ON_ERROR_T] = None,
+        on_open: Optional[ON_OPEN_T] = None,
+        on_close: Optional[ON_CLOSE_T] = None,
         **kwargs,
     ) -> WebSocket:
         """Connects to a websocket url.
